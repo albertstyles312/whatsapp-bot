@@ -112,7 +112,7 @@ module.exports = msgHandler = async (client, message) => {
             break
         case '!donasi':
         case '!donate':
-	    client.send.Text(from, '*TERIMA KASIH*', donate)
+	    client.sendText(from, donate)
             client.sendImage(from, './media/img/qris.jpeg', donate)
             break
         case '!tts':
