@@ -761,9 +761,6 @@ module.exports = msgHandler = async (client, message) => {
         case '!readme':
             client.reply(from, readme, id)
             break
-        case '!info':
-            client.sendLinkWithAutoPreview(from, 'https://github.com/mhankbarbar/whatsapp-bot', info)
-            break
         case '!snk':
             client.reply(from, snk, id)
             break
