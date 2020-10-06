@@ -762,7 +762,7 @@ module.exports = msgHandler = async (client, message) => {
             client.sendText(from, help)
             break
 	case '!info':
-            client.sendLinkWithAutoPreview(from, 'Informasi MCPR_BOT', info)
+            client.sendLinkWithAutoPreview(from, 'Informasi *ZeroTwo Bot*', info)
             break
         case '!readme':
             client.reply(from, readme, id)
