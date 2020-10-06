@@ -57,7 +57,7 @@ module.exports = msgHandler = async (client, message) => {
         const groupAdmins = isGroupMsg ? await client.getGroupAdmins(groupId) : ''
         const isGroupAdmins = isGroupMsg ? groupAdmins.includes(sender.id) : false
         const isBotGroupAdmins = isGroupMsg ? groupAdmins.includes(botNumber + '@c.us') : false
-        const ownerNumber = '628xxxxx@c.us'
+        const ownerNumber = '6285866040557@c.us'
         const isOwner = sender.id === ownerNumber
         const isBlocked = blockNumber.includes(sender.id)
         const isNsfw = isGroupMsg ? nsfw_.includes(chat.id) : false
@@ -116,6 +116,7 @@ module.exports = msgHandler = async (client, message) => {
             client.sendImage(from, './media/img/qris.jpeg', donate)
             break
         case '!tts':
+	    if (!isOwner) return client.reply(from, 'Perintah ini hanya untuk Owner bot', id)
             if (args.length === 1) return client.reply(from, 'Kirim perintah *!tts [id, en, jp, ar] [teks]*, contoh *!tts id halo semua*')
             const ttsId = require('node-gtts')('id')
             const ttsEn = require('node-gtts')('en')
@@ -168,7 +169,7 @@ module.exports = msgHandler = async (client, message) => {
             ])
             .on('error', () => client.reply(from, 'Error gan', id))
             .on('exit', () => {
-                client.sendImage(from, './media/img/after.jpg', 'nulis.jpg', 'Nih mhank', id)
+                client.sendImage(from, './media/img/after.jpg', 'nulis.jpg', 'Nih ', id)
             })
             break
         case '!ytmp3':
@@ -585,6 +586,7 @@ module.exports = msgHandler = async (client, message) => {
             client.deleteMessage(quotedMsgObj.chatId, quotedMsgObj.id, false)
             break
         case '!getses':
+	    if (!isOwner) return client.reply(from, 'Perintah ini hanya untuk Owner bot', id)
             const sesPic = await client.getSnapshot()
             client.sendFile(from, sesPic, 'session.png', 'Neh...', id)
             break
