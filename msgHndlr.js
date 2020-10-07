@@ -73,6 +73,7 @@ module.exports = msgHandler = async (client, message) => {
         switch(command) {
         case '!sticker':
         case '!stiker':
+	    client.sendText(from, 'Haik Daling', id)
             if (isMedia && type === 'image') {
                 const mediaData = await decryptMedia(message, uaOverride)
                 const imageBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
@@ -564,6 +565,7 @@ module.exports = msgHandler = async (client, message) => {
             await client.sendTextWithMentions(from, `Perintah diterima, menghapus jabatan @${mentionedJidList[0]}.`)
             break
         case '!join':
+	    if (!isOwner) return client.reply(from, 'Perintah ini hanya untuk Owner bot', id)
             if (args.length === 1) return client.reply(from, 'Kirim perintah *!join* linkgroup\n\nEx:\n!join https://chat.whatsapp.com/blablablablablabla', id)
             const link = body.slice(6)
             const tGr = await client.getAllGroups()
