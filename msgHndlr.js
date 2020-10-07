@@ -761,6 +761,20 @@ module.exports = msgHandler = async (client, message) => {
             const { postlink, title, subreddit, url, nsfw, spoiler } = response.data
             client.sendFileFromUrl(from, `${url}`, 'meme.jpg', `${title}`)
             break
+	case '!tiktok':
+                if (args.length !== 1) return client.reply(from, '⚠️ Format salah! Ketik *$menu* untuk penggunaan. [WRONG FORMAT]', id)
+                if (!isUrl(url) && !url.includes('tiktok.com')) return client.reply(from, '⚠️ Link tidak valid! [INVALID]', id)
+                await client.reply(from, `_Mohon tunggu sebentar ya daling, proses ini akan memakan waktu beberapa menit..._\n\nMerasa terbantu karena bot ini? Bantu saya dengan cara donasi melalui:\n085866040557 (DANA)\n\nTerima kasih 🙏`, id)
+                downloader.tiktok(url)
+                .then(async (videoMeta) => {
+                        const filename = videoMeta.authorMeta.name + '.mp4'
+                        const caps = `*\nUsername: ${videoMeta.authorMeta.name} \nMusic: ${videoMeta.musicMeta.musicName} \nView: ${videoMeta.playCount.toLocaleString()} \nLike: ${videoMeta.diggCount.toLocaleString()} \nComment: ${videoMeta.commentCount.toLocaleString()} \nShare: ${videoMeta.shareCount.toLocaleString()} \nCaption: ${videoMeta.text.trim() ? videoMeta.text : '-'}`
+                        await client.sendFileFromUrl(from, videoMeta.url, filename, videoMeta.NoWaterMark ? caps : `⚠ Video tanpa watermark tidak tersedia. \n\n${caps}`, '', { headers: { 'User-Agent': 'okhttp/4.5.0', referer: 'https://www.tiktok.com/' } }, true)
+                        .then((serialized) => console.log(`Sukses Mengirim file dengan ID: ${serialized} diproses selama ${processTime(t, moment())} detik`))
+                        .catch((err) => console.error(err))
+                })
+                .catch(() => client.reply(from, '⚠️ Link tidak valid! [INVALID]', id))
+            break
 	case '!server':
 	    await client.sendText(from,`Penggunaan RAM: *${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB*\nCPU: ${os.cpus().length}@${os.cpus()[0].model}`)
             break
