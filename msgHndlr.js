@@ -2,6 +2,7 @@ const { decryptMedia } = require('@open-wa/wa-decrypt')
 const fs = require('fs-extra')
 const axios = require('axios')
 const moment = require('moment-timezone')
+const os = require('os')
 const get = require('got')
 const color = require('./lib/color')
 const { spawn, exec } = require('child_process')
@@ -757,6 +758,9 @@ module.exports = msgHandler = async (client, message) => {
             const response = await axios.get('https://meme-api.herokuapp.com/gimme/wholesomeanimemes');
             const { postlink, title, subreddit, url, nsfw, spoiler } = response.data
             client.sendFileFromUrl(from, `${url}`, 'meme.jpg', `${title}`)
+            break
+	case '!server':
+	    await client.sendText(from,`Penggunaan RAM: *${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB*\nCPU: ${os.cpus().length}@${os.cpus()[0].model}`)
             break
         case '!help':
             client.sendText(from, help)
