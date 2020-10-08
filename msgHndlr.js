@@ -652,7 +652,6 @@ module.exports = msgHandler = async (client, message) => {
             client.sendFileFromUrl(from, waifu.image, 'Waifu.jpg', `➸ Name : ${waifu.name}\n➸ Description : ${waifu.desc}\n\n➸ Source : ${waifu.source}`, id)
             break
 	case '!ptl1'
-	    const imageToBase64 = require('image-to-base64');
     var items = ["ullzang girl", "cewe cantik", "hijab cantik", "korean girl"];
     var cewe = items[Math.floor(Math.random() * items.length)];
     var url = "http://api.fdci.se/rep.php?gambar=" + cewe;
@@ -682,6 +681,7 @@ Hai Kak 😊` });
     
     });
     }
+	    break
         case '!husbu':
             const diti = fs.readFileSync('./lib/husbu.json')
             const ditiJsin = JSON.parse(diti)
