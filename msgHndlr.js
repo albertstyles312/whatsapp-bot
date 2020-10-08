@@ -651,6 +651,37 @@ module.exports = msgHandler = async (client, message) => {
             const waifu = await get.get('https://mhankbarbar.herokuapp.com/api/waifu').json()
             client.sendFileFromUrl(from, waifu.image, 'Waifu.jpg', `➸ Name : ${waifu.name}\n➸ Description : ${waifu.desc}\n\n➸ Source : ${waifu.source}`, id)
             break
+	case '!ptl1'
+	    const imageToBase64 = require('image-to-base64');
+    var items = ["ullzang girl", "cewe cantik", "hijab cantik", "korean girl"];
+    var cewe = items[Math.floor(Math.random() * items.length)];
+    var url = "http://api.fdci.se/rep.php?gambar=" + cewe;
+    
+    request.get({
+      headers: {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'},
+      url:     url,
+    },function(error, response, body){
+        
+      var b = JSON.parse(body);
+    var cewek =  b[Math.floor(Math.random() * b.length)];
+    imageToBase64(cewek) // Path to the image
+        .then(
+            (response) => {
+ 
+    const media = new MessageMedia('image/jpeg', response);
+    client.sendMessage(msg.from, media, {
+      caption: `
+Hai Kak 😊` });
+            }
+        )
+        .catch(
+            (error) => {
+                console.log(error); // Logs an error if there was one
+            }
+        )
+    
+    });
+    }
         case '!husbu':
             const diti = fs.readFileSync('./lib/husbu.json')
             const ditiJsin = JSON.parse(diti)
