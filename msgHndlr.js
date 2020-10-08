@@ -465,6 +465,26 @@ module.exports = msgHandler = async (client, message) => {
             await sleep(2000)
             await client.sendTextWithMentions(from, mimin)
             break
+	case 'groupinfo' :
+            if (!isGroupMsg) return client.reply(from, '.', message.id) 
+            var totalMem = chat.groupMetadata.participants.length
+            var desc = chat.groupMetadata.desc
+            var groupname = name
+            var welgrp = wel.includes(chat.id)
+            var ngrp = nsfwgrp.includes(chat.id)
+            var grouppic = await client.getProfilePicFromServer(chat.id)
+            if (grouppic == undefined) {
+                 var pfp = errorurl
+            } else {
+                 var pfp = grouppic 
+            }
+            await client.sendFileFromUrl(from, pfp, 'group.png', `*${groupname}* 
+🌐️ *Members: ${totalMem}*
+💌️ *Welcome: ${welgrp}*
+⚜️ *NSFW: ${ngrp}*
+📃️ *Group Description* 
+${desc}`)
+	    break
         case '!ownergroup':
             if (!isGroupMsg) return client.reply(from, 'Perintah ini hanya bisa di gunakan dalam group!', id)
             const Owner_ = chat.groupMetadata.owner
