@@ -112,24 +112,6 @@ module.exports = msgHandler = async (client, message) => {
                 )
             }
             break
-	case 'tsticker':
-            if (isMedia && type == 'image') {
-              try {
-                const mediaData = await decryptMedia(message, uaOverride)
-                const imageBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
-                const base64img = imageBase64
-                const filename = "./media/images/pic.jpg";
-                //console.log(base64img)
-                const outFile = './media/images/noBg.png'
-                const result = await removeBackgroundFromImageBase64({ base64img, apiKey: 'mjaPoWpXB1o6LmfaYH1eLL4W', size: 'auto', type: 'auto', outFile })
-                console.log(result.base64img)
-                    await fs.writeFile(outFile, result.base64img)
-                    await client.sendImageAsSticker(from, `data:${mimetype};base64,${result.base64img}`)
-                } catch(err) {
-                    console.log(err)
-                }
-            }
-            break
         case '!donasi':
         case '!donate':
 	    client.sendText(from, donate)
